@@ -37,3 +37,16 @@ const Login = () => {
 };
 
 export default Login;
+// if (provider == "github")
+//         {
+//             var parts = pr.Repository.Name.Split('/');
+//             var owner = parts[0];
+//             var repo = parts[1];
+
+//            await _githubComment.AddCommentAsync(owner, repo, pr.ExternalId!, finalComment);
+
+//         }
+//          else if (provider == "gitlab")
+//         {
+//             await _gitlabComment.AddCommentAsync(pr.ExternalId!, finalComment);
+//         }
