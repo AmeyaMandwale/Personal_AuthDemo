@@ -31,7 +31,7 @@ http.DefaultRequestHeaders.Authorization =
         string url = $"https://api.github.com/repos/{owner}/{repo}/issues/{prNumber}/comments";
 
         var payload = new { body = comment };
-        var res = await http.PostAsJsonAsync(url, payload);
+      
 
         return res.IsSuccessStatusCode;
     }
