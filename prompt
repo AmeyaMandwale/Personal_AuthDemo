@@ -1,0 +1,24 @@
+ var fileBlocks = string.Join("\n\n", files.Select(f =>
+            provider == "github"
+                ? $"FILE: {((GitHubFileDto)f).filename}\nPATCH:\n{((GitHubFileDto)f).patch}"
+                : $"FILE: {((GitLabFileDto)f).new_path}\nPATCH:\n{((GitLabFileDto)f).diff}"
+        ));
+
+        var fullPrompt = $@"
+You are a senior code reviewer AI.  
+Follow these RULES strictly also mention which rule not followed:
+
+{ruleContent}
+
+Below is the pull request code diff:
+
+{fileBlocks}
+
+Generate a **350-word structured review** containing:
+
+1. Summary (100–120 words)
+2. Major Suggestions (150–180 words)
+3. Key Changes (80–100 words)
+
+Be developer-friendly and apply the above rulepacks.
+";
