@@ -13,6 +13,5 @@
                 $"According to the current PR, the raised issues or modifications can be reviewed here:\n\n" +
                 $"➡️ {reportUrl}";
 
-            // Reuse existing method (NO breaking change)
-            return await AddCommentAsync(owner, repo, externalId, finalComment);
+           
         }
