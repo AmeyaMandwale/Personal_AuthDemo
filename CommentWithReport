@@ -1,5 +1,4 @@
-// ---------------- NEW METHOD TO APPEND REPORT URL ----------------
-        public async Task<bool> AddCommentWithReportAsync(
+  public async Task<bool> AddCommentWithReportAsync(
             string owner,
             string repo,
             string externalId,
@@ -13,5 +12,6 @@
                 $"According to the current PR, the raised issues or modifications can be reviewed here:\n\n" +
                 $"➡️ {reportUrl}";
 
-           
+            // Reuse existing method (NO breaking change)
+            return await AddCommentAsync(owner, repo, externalId, finalComment);
         }
