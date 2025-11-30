@@ -10,5 +10,5 @@
         .OrderByDescending(c => c.created_at)
         .FirstOrDefault();
 
-    
+    return aiComment?.created_at;
 }
