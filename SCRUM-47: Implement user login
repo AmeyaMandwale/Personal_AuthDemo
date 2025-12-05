@@ -1,0 +1,29 @@
+public async Task<JiraIssueDto?> GetIssueAsync(string issueKey, CancellationToken ct = default)
+        {
+            if (string.IsNullOrWhiteSpace(issueKey)) return null;
+
+            var url = $"{_opts.BaseUrl}/rest/api/3/issue/{issueKey}";
+             _logger.LogInformation("🌐 Calling Jira API → {url}", url);
+            using var req = new HttpRequestMessage(HttpMethod.Get, url);
+            req.Headers.Authorization = new AuthenticationHeaderValue("Basic", GetAuthHeaderValue());
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            try
+            {
+                var res = await _http.SendAsync(req, ct);
+                if (!res.IsSuccessStatusCode)
+                {
+                    _logger.LogWarning("Jira.GetIssueAsync failed ({code}) for {key}: {msg}", (int)res.StatusCode, issueKey, await res.Content.ReadAsStringAsync(ct));
+                    return null;
+                }
+
+                var json = await res.Content.ReadAsStringAsync(ct);
+                var dto = JsonSerializer.Deserialize<JiraIssueDto>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                return dto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Jira.GetIssueAsync error for {key}", issueKey);
+                return null;
+            }
+        }
