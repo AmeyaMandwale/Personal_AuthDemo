@@ -1,3 +1,4 @@
+//LOginPage.tsx
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -23,7 +24,7 @@ export default function LoginPage() {
         />
       </div>
 
-      <div style={{ marginTop: 15 }}>
+      <div style={{ marginTop: 25 }}>
         <label>Password</label>
         <input
           type="password"
@@ -33,7 +34,7 @@ export default function LoginPage() {
         />
       </div>
 
-      <button onClick={handleLogin} style={{ marginTop: 25 }}>
+      <button onClick={handleLogin} style={{ marginTop: 15 }}>
         Login
       </button>
     </div>
