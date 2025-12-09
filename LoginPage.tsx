@@ -12,7 +12,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ padding: 10 }}>
+    <div style={{ padding: 30 }}>
       <h2>User Login</h2>
 
       <div>
@@ -24,7 +24,7 @@ export default function LoginPage() {
         />
       </div>
 
-      <div style={{ marginTop: 15 }}>
+      <div style={{ marginTop: 25 }}>
         <label>Password</label>
         <input
           type="password"
@@ -34,7 +34,7 @@ export default function LoginPage() {
         />
       </div>
 
-      <button onClick={handleLogin} style={{ marginTop: 25 }}>
+      <button onClick={handleLogin} style={{ marginTop: 15 }}>
         Login
       </button>
     </div>
