@@ -1,4 +1,3 @@
-//LoginPage.tsx
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -12,7 +11,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ padding: 30 }}>
+    <div style={{ padding: 10 }}>
       <h2>User Login</h2>
 
       <div>
@@ -34,7 +33,7 @@ export default function LoginPage() {
         />
       </div>
 
-      <button onClick={handleLogin} style={{ marginTop: 15 }}>
+      <button onClick={handleLogin} style={{ marginTop: 45 }}>
         Login
       </button>
     </div>
