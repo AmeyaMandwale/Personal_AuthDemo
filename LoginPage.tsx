@@ -1,4 +1,3 @@
-//LoginPage.tsx
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -12,7 +11,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ padding: 10 }}>
+    <div style={{ padding: 20 }}>
       <h2>User Login</h2>
 
       <div>
@@ -24,7 +23,7 @@ export default function LoginPage() {
         />
       </div>
 
-      <div style={{ marginTop: 25 }}>
+      <div style={{ marginTop: 15 }}>
         <label>Password</label>
         <input
           type="password"
