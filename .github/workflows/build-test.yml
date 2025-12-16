@@ -1,0 +1,35 @@
+name: Build and Test (Manual Trigger)
+
+on:
+  workflow_dispatch:
+    inputs:
+      prNumber:
+        description: "PR Number"
+        required: true
+      branch:
+        description: "Branch to build"
+        required: true
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Run Tests
+        run: dotnet test --no-build --verbosity normal
