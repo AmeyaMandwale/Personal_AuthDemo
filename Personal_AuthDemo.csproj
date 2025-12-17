@@ -4,5 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
-
+ <!-- 👇 IMPORTANT: Exclude test files -->
+  <ItemGroup>
+    <Compile Remove="Personal_AuthDemo.Tests/**/*.cs" />
+  </ItemGroup>
 </Project>
