@@ -50,7 +50,7 @@ jobs:
       - name: Run JMeter Load Test
         run: |
          jmeter -n \
-         -t performance-tests/basic-load-test.jmx \
+         -t performance-tests/repository-api-load.jmx \
          -l results.jtl \
          -e -o jmeter-report
 
