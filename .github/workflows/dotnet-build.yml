@@ -78,7 +78,6 @@ jobs:
          echo "$PWD/gatling-charts-highcharts-bundle-3.10.3/bin" >> $GITHUB_PATH
 
       - name: Run Gatling Tests
-        continue-on-error: true
         run: |
           gatling.sh \
           -rm local \
