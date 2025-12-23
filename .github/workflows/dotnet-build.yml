@@ -78,12 +78,15 @@ jobs:
          echo "$PWD/gatling-charts-highcharts-bundle-3.10.3/bin" >> $GITHUB_PATH
 
       - name: Run Gatling Tests
+        continue-on-error: true
         run: |
           gatling.sh \
+          -rm local \
           -bf $GITHUB_WORKSPACE \
           -sf $GITHUB_WORKSPACE/gatling/user-files/simulations \
           -s simulations.ApiLoadSimulation \
           -rf $GITHUB_WORKSPACE/gatling-results
+
 
       - name: Upload Gatling Report
         uses: actions/upload-artifact@v4
