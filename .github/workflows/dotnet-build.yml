@@ -68,8 +68,9 @@ jobs:
       #      path: jmeter-report/
       - name: Start API
         run: |
-          dotnet run --project Personal_AuthDemo &
-          sleep 25
+          dotnet run --project Personal_AuthDemo/Personal_AuthDemo.csproj &
+          sleep 30
+
 
       - name: Install Gatling
         run: |
