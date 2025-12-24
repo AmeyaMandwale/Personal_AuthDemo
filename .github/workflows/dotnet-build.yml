@@ -41,31 +41,32 @@ jobs:
      # JMeter integration
      # -------------------------
 
-      # - name: Install JMeter (Pinned)
-      #   run: |
-      #     wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.6.3.tgz
-      #     tar -xzf apache-jmeter-5.6.3.tgz
-      #     echo "$PWD/apache-jmeter-5.6.3/bin" >> $GITHUB_PATH
+      - name: Install JMeter (Pinned)
+        run: |
+          wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.6.3.tgz
+          tar -xzf apache-jmeter-5.6.3.tgz
+          echo "$PWD/apache-jmeter-5.6.3/bin" >> $GITHUB_PATH
 
-      # - name: Run JMeter Load Test
-      #   run: |
-      #    jmeter -n \
-      #    -t performance-tests/repository-api-load.jmx \
-      #    -l results.jtl \
-      #    -e -o jmeter-report
+      - name: Run JMeter Load Test
+        run: |
+         jmeter -n \
+         -t performance-tests/repository-api-load.jmx \
+         -l results.jtl \
+         -e -o jmeter-report
 
-      # - name: Validate JMeter Results
-      #   run: |
-      #    if [ ! -f results.jtl ]; then
-      #    echo "❌ JMeter results not generated"
-      #    exit 1
-      #    fi
+      - name: Validate JMeter Results
+        run: |
+         if [ ! -f results.jtl ]; then
+         echo "❌ JMeter results not generated"
+         exit 1
+         fi
 
-      # - name: Upload JMeter Report
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #      name: jmeter-report
-      #      path: jmeter-report/
+      - name: Upload JMeter Report
+        uses: actions/upload-artifact@v4
+        with:
+           name: jmeter-report
+           path: jmeter-report/
+           
       - name: Start API
         run: |
           dotnet run --project Personal_AuthDemo/Personal_AuthDemo.csproj &
