@@ -24,6 +24,7 @@ function App() {
               <Dashboard accessToken={accessToken} />
             ) : (
               <Navigate to="/" />
+              <Navigate to="/" />
             )
           }
         />
