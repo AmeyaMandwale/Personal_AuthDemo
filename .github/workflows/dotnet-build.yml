@@ -1,0 +1,101 @@
+name: .NET Build Check
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to build"
+        required: true
+        default: "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          
+      - name: Run tests
+        run: dotnet test  --configuration Release --no-build --verbosity normal
+
+     # -------------------------
+     # JMeter integration
+     # -------------------------
+
+      # - name: Install JMeter (Pinned)
+      #   run: |
+      #     wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.6.3.tgz
+      #     tar -xzf apache-jmeter-5.6.3.tgz
+      #     echo "$PWD/apache-jmeter-5.6.3/bin" >> $GITHUB_PATH
+
+      # - name: Run JMeter Load Test
+      #   run: |
+      #    jmeter -n \
+      #    -t performance-tests/repository-api-load.jmx \
+      #    -l results.jtl \
+      #    -e -o jmeter-report
+
+      # - name: Validate JMeter Results
+      #   run: |
+      #    if [ ! -f results.jtl ]; then
+      #    echo "❌ JMeter results not generated"
+      #    exit 1
+      #    fi
+
+      # - name: Upload JMeter Report
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #      name: jmeter-report
+      #      path: jmeter-report/
+
+      - name: Start API
+        run: |
+          dotnet run --project Personal_AuthDemo/Personal_AuthDemo.csproj &
+          sleep 30
+
+
+      - name: Install Gatling
+        run: |
+         wget https://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts-bundle/3.10.3/gatling-charts-highcharts-bundle-3.10.3-bundle.zip
+         unzip gatling-charts-highcharts-bundle-3.10.3-bundle.zip
+         echo "$PWD/gatling-charts-highcharts-bundle-3.10.3/bin" >> $GITHUB_PATH
+
+      - name: Run Gatling Tests
+        run: |
+          gatling.sh \
+          -rm local \
+          -bf $GITHUB_WORKSPACE \
+          -sf $GITHUB_WORKSPACE/gatling/user-files/simulations \
+          -s simulations.ApiLoadSimulation \
+          -rf $GITHUB_WORKSPACE/gatling-results
+
+
+      - name: Upload Gatling Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gatling-report
+          path: gatling-results/
+
+          
+
+      
+             
